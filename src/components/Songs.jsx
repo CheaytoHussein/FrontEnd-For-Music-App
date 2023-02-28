@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import logo from "../assets/main.svg";
-import defaultLogo from "../assets/guitar.svg";
+import cdLogo from "../assets/cd.svg";
 import { motion } from "framer-motion";
 const Song = ({ isMobile }) => {
   const [songData, setSongData] = useState([]);
@@ -25,7 +25,11 @@ const Song = ({ isMobile }) => {
   function handleAlbum(song) {
     return song.album == null ? "no album" : song.album;
   }
-
+  function handleDuration(duration) {
+    let minutes = ~~(duration / 60); //fastest way to do integer division in javascript
+    let seconds = duration % 60;
+    return `${minutes}:${(seconds < 9 ? "0" : "") + seconds}`;
+  }
   return loading ? (
     <img
       src={logo}
@@ -39,25 +43,61 @@ const Song = ({ isMobile }) => {
         placeholder="Search by song name"
         className="h-10 w-96 border-none border-solid rounded-xl text-center font-bold mt-40"
       />
-      <div className="mt-20">
+      <div className="mt-20 flex flex-col gap-20">
         {songData.map((item, idx) => {
           return (
             <motion.figure
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               key={idx}
-              className="flex flex-row justify-around w-screen"
+              className="flex flex-row justify-around items-center w-[50vw] h-[20vh] border-transparent rounded-2xl shadow-3xl"
             >
               <img
-                src={item.cover == "" ? defaultLogo : item.cover}
+                src={item.cover == "" ? cdLogo : item.cover}
                 alt="cover image of the song"
-                className="aspect-square h-10"
+                className="aspect-square h-20"
               />
-              <figcaption className="flex flex-row justify-around w-96">
-                {item.songName}
-              </figcaption>
-              <figcaption className="flex flex-row justify-around w-96">
-                {handleArtists(item)}
+              <figcaption className="flex flex-row gap-10">
+                <div>
+                  <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
+                    <span className="lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+                      song name
+                    </span>
+                    {item.songName}
+                  </span>
+                  <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
+                    <span className="font-extrabold lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+                      artist(s)
+                    </span>
+                    {handleArtists(item)}
+                  </span>
+                  <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
+                    <span className="font-extrabold lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+                      album
+                    </span>
+                    {handleAlbum(item)}
+                  </span>
+                </div>
+                <div>
+                  <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
+                    <span className="lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+                      release date
+                    </span>
+                    {item.releaseDate}
+                  </span>
+                  <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
+                    <span className="lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+                      genre
+                    </span>
+                    {item.genre}
+                  </span>
+                  <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
+                    <span className="lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+                      duration
+                    </span>
+                    {handleDuration(item.duration)}
+                  </span>
+                </div>
               </figcaption>
             </motion.figure>
           );
