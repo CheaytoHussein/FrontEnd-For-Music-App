@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import logo from "../assets/main.svg";
 import defaultLogo from "../assets/guitar.svg";
+import { motion } from "framer-motion";
 const Song = ({ isMobile }) => {
   const [songData, setSongData] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -17,7 +18,9 @@ const Song = ({ isMobile }) => {
   }, []);
 
   function handleArtists(song) {
-    return song.artists.length == 0 ? "unknown artist" : song.artists.join(", ");
+    return song.artists.length == 0
+      ? "unknown artist"
+      : song.artists.join(", ");
   }
   function handleAlbum(song) {
     return song.album == null ? "no album" : song.album;
@@ -30,22 +33,33 @@ const Song = ({ isMobile }) => {
       className="animate-spin aspect-square h-10"
     />
   ) : (
-    <section className="h-screen w-screen flex flex-col bg-neutral-900 justify-around items-center">
+    <section className="flex flex-col bg-neutral-900 justify-around items-center">
       <input
         type="text"
         placeholder="Search by song name"
-        className="h-10 w-96 border-none border-solid rounded-xl text-center font-bold"
+        className="h-10 w-96 border-none border-solid rounded-xl text-center font-bold mt-40"
       />
-      <div className="bg-neutral-900">
+      <div className="mt-20">
         {songData.map((item, idx) => {
           return (
-            <figure key={idx} className="flex flex-row drop-shadow-2xl w-max border-2">
-              <img src={item.cover == "" ? defaultLogo : item.cover} alt="cover image of the song" className="aspect-square h-10"/>
-              <figcaption className="flex flex-row justify-around">
-                <span>{item.songName}</span>
-                <span>{handleArtists(item)}</span>
+            <motion.figure
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              key={idx}
+              className="flex flex-row justify-around w-screen"
+            >
+              <img
+                src={item.cover == "" ? defaultLogo : item.cover}
+                alt="cover image of the song"
+                className="aspect-square h-10"
+              />
+              <figcaption className="flex flex-row justify-around w-96">
+                {item.songName}
               </figcaption>
-            </figure>
+              <figcaption className="flex flex-row justify-around w-96">
+                {handleArtists(item)}
+              </figcaption>
+            </motion.figure>
           );
         })}
       </div>

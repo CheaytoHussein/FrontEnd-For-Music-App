@@ -22,7 +22,7 @@ function App() {
         currentComponent={currentComponent}
         setCurrentComponent={(component) => setCurrentComponent(component)}
       />
-      <main className="flex justify-center items-center h-screen -z-10">
+      <main className="flex justify-center items-center">
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route exact path="Songs" element={<Songs isMobile={isMobile} />} />
