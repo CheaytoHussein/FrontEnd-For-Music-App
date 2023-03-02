@@ -8,6 +8,7 @@ export default function Artists() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true)
     fetch("http://localhost:8080/api/artists")
       .then((data) => data.json())
       .then((data) => {
@@ -28,7 +29,7 @@ export default function Artists() {
       <input
         type="text"
         placeholder="Search by album name"
-        className="h-10 w-96 border-none border-solid rounded-xl text-center font-bold mt-40"
+        className="sticky top-20 h-10 w-80 lg:w-96 border-none border-solid rounded-xl text-center font-bold mt-40"
       />
       <div className="mt-20 flex flex-col gap-20">
         {artistData.map((item, idx) => {
@@ -36,11 +37,13 @@ export default function Artists() {
             <motion.figure
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              style = {{height : item.description.length > 320 ? "50vh" : "30vh"}}
+              style={{
+                height: item.description.length > 320 ? "50vh" : "30vh",
+              }}
               key={idx}
-              className="flex flex-col justify-around w-[50vw] border-transparent rounded-2xl shadow-3xl"
+              className="flex flex-col justify-around w-[70vw] h-[70vh] lg:w-[50vw] lg:height-[20vh] border-transparent rounded-2xl shadow-3xl"
             >
-              <div className="flex flex-row justify-around items-center">
+              <div className="flex flex-col lg:flex-row justify-around items-center">
                 <img
                   src={item.cover == "" ? cdLogo : item.cover}
                   alt="cover image of the song"
@@ -77,7 +80,9 @@ export default function Artists() {
                   </div>
                 </figcaption>
               </div>
-              <h2 className="w-[70%] text-center ml-auto mr-auto font-bold leading-7">{item.description}</h2>
+              <h2 className="w-[70%] text-center ml-auto mr-auto font-bold leading-7">
+                {item.description}
+              </h2>
             </motion.figure>
           );
         })}

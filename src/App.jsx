@@ -12,7 +12,7 @@ function App() {
   useEffect(
     () =>
       window.addEventListener("resize", () =>
-        window.innerWidth > 768 ? setIsMobile(false) : setIsMobile(true)
+        window.innerWidth > 1024 ? setIsMobile(false) : setIsMobile(true)
       ),
     []
   );

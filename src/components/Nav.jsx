@@ -30,7 +30,7 @@ export default function Nav({ currentComponent, setCurrentComponent }) {
             onClick={() => setCurrentComponent("Home")}
           />
         </Link>
-        <ul className="inline-flex gap-20 lg:mr-20 justify-center items-center text-white text-lg lg:text-5xl font-bold">
+        <ul className="inline-flex gap-10 sm:gap-20 lg:mr-20 justify-center items-center text-white text-lg lg:text-5xl font-bold">
           {navLinks.map((item, idx) => {
             return (
               <li

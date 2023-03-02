@@ -41,7 +41,7 @@ const Song = ({ isMobile }) => {
       <input
         type="text"
         placeholder="Search by song name"
-        className="h-10 w-96 border-none border-solid rounded-xl text-center font-bold mt-40"
+        className="sticky top-20 h-10 w-80 lg:w-96 border-none border-solid rounded-xl text-center font-bold mt-40"
       />
       <div className="mt-20 flex flex-col gap-20">
         {songData.map((item, idx) => {
@@ -50,14 +50,14 @@ const Song = ({ isMobile }) => {
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
               key={idx}
-              className="flex flex-row justify-around items-center w-[50vw] h-[20vh] border-transparent rounded-2xl shadow-3xl"
+              className="flex flex-col lg:flex-row justify-evenly items-center w-[70vw] h-[70vh] lg:w-[50vw] lg:h-[20vh] border-transparent rounded-2xl shadow-3xl"
             >
               <img
                 src={item.cover == "" ? cdLogo : item.cover}
                 alt="cover image of the song"
                 className="aspect-square h-20"
               />
-              <figcaption className="flex flex-row gap-10">
+              <figcaption className="flex flex-col lg:flex-row lg:gap-10">
                 <div>
                   <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
                     <span className="lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
