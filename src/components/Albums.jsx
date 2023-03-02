@@ -8,6 +8,7 @@ export default function Albums() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    document.title = "Music-App - Albums";
     fetch("http://localhost:8080/api/albums")
       .then((data) => data.json())
       .then((data) => {
@@ -28,7 +29,7 @@ export default function Albums() {
     <img
       src={logo}
       alt="spinning music logo"
-      className="animate-spin aspect-square h-10"
+      className="animate-spin aspect-square h-10 absolute top-[50vh]"
     />
   ) : (
     <section className="flex flex-col bg-neutral-900 justify-around items-center">

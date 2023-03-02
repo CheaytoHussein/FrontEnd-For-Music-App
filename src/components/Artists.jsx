@@ -8,7 +8,7 @@ export default function Artists() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    setLoading(true)
+    document.title = "Music-App - Artists";
     fetch("http://localhost:8080/api/artists")
       .then((data) => data.json())
       .then((data) => {
@@ -22,7 +22,7 @@ export default function Artists() {
     <img
       src={logo}
       alt="spinning music logo"
-      className="animate-spin aspect-square h-10"
+      className="animate-spin aspect-square h-10 absolute top-[50vh]"
     />
   ) : (
     <section className="flex flex-col bg-neutral-900 justify-around items-center">
@@ -37,52 +37,50 @@ export default function Artists() {
             <motion.figure
               initial={{ opacity: 0 }}
               whileInView={{ opacity: 1 }}
-              style={{
-                height: item.description.length > 320 ? "50vh" : "30vh",
-              }}
+              // style={{
+              //   height: item.description.length > 320 ? "50vh" : "30vh",
+              // }}
               key={idx}
-              className="flex flex-col justify-around w-[70vw] h-[70vh] lg:w-[50vw] lg:height-[20vh] border-transparent rounded-2xl shadow-3xl"
+              className="flex flex-col lg:flex-row justify-around items-center h-[70vh] w-[70vw] lg:w-[50vw] lg:h-[20vh] border-transparent rounded-2xl shadow-3xl"
             >
-              <div className="flex flex-col lg:flex-row justify-around items-center">
-                <img
-                  src={item.cover == "" ? cdLogo : item.cover}
-                  alt="cover image of the song"
-                  className="aspect-square h-20"
-                />
-                <figcaption className="flex flex-row gap-10">
-                  <div>
-                    <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
-                      <span className="lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-                        artist name
-                      </span>
-                      {item.artistName}
+              <img
+                src={item.cover == "" ? cdLogo : item.cover}
+                alt="cover image of the song"
+                className="aspect-square h-20"
+              />
+              <figcaption className="flex flex-col lg:flex-row lg:gap-20">
+                <div>
+                  <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
+                    <span className="lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+                      artist name
                     </span>
-                    <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
-                      <span className="font-extrabold lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-                        albums
-                      </span>
-                      {item.albumCount}
+                    {item.artistName}
+                  </span>
+                  <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
+                    <span className="font-extrabold lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+                      albums
                     </span>
-                  </div>
-                  <div>
-                    <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
-                      <span className="lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-                        genre
-                      </span>
-                      {item.genre}
+                    {item.albumCount}
+                  </span>
+                </div>
+                <div>
+                  <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
+                    <span className="lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+                      genre
                     </span>
-                    <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
-                      <span className="lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-                        songs
-                      </span>
-                      {item.songCount}
+                    {item.genre}
+                  </span>
+                  <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
+                    <span className="lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+                      songs
                     </span>
-                  </div>
-                </figcaption>
-              </div>
-              <h2 className="w-[70%] text-center ml-auto mr-auto font-bold leading-7">
+                    {item.songCount}
+                  </span> 
+                </div>
+              </figcaption>
+              {/* <h2 className="w-[70%] text-center ml-auto mr-auto font-bold leading-7">
                 {item.description}
-              </h2>
+              </h2> */}
             </motion.figure>
           );
         })}

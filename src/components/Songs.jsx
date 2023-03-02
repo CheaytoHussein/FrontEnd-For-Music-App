@@ -7,6 +7,7 @@ const Song = ({ isMobile }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    document.title = "Music-App - Songs";
     fetch("http://localhost:8080/api/songs")
       .then((data) => data.json())
       .then((data) => {
@@ -34,7 +35,7 @@ const Song = ({ isMobile }) => {
     <img
       src={logo}
       alt="spinning music logo"
-      className="animate-spin aspect-square h-10"
+      className="animate-spin aspect-square h-10 absolute top-[50vh]"
     />
   ) : (
     <section className="flex flex-col bg-neutral-900 justify-around items-center">
@@ -57,7 +58,7 @@ const Song = ({ isMobile }) => {
                 alt="cover image of the song"
                 className="aspect-square h-20"
               />
-              <figcaption className="flex flex-col lg:flex-row lg:gap-10">
+              <figcaption className="flex flex-col lg:flex-row lg:  gap-10">
                 <div>
                   <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
                     <span className="lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
