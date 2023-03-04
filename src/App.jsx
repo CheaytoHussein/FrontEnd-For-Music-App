@@ -25,7 +25,7 @@ function App() {
       <main className="flex justify-center">
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route exact path="Songs" element={<Songs isMobile={isMobile} />} />
+          <Route exact path="Songs" element={<Songs />} />
           <Route exact path="Albums" element={<Albums />} />
           <Route exact path="Artists" element={<Artists />} />
         </Routes>

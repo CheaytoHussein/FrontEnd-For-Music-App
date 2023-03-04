@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import logo from "../assets/main.svg";
 import cdLogo from "../assets/cd.svg";
 import { motion } from "framer-motion";
-const Song = ({ isMobile }) => {
+const Song = () => {
   const [songData, setSongData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -27,7 +27,7 @@ const Song = ({ isMobile }) => {
     return song.album == null ? "no album" : song.album;
   }
   function handleDuration(duration) {
-    let minutes = ~~(duration / 60); //fastest way to do integer division in javascript
+    let minutes = ~~(duration / 60); //fastest way to do integer division in JavaScript
     let seconds = duration % 60;
     return `${minutes}:${(seconds < 9 ? "0" : "") + seconds}`;
   }
