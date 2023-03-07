@@ -5,17 +5,12 @@ import Songs from "./components/Songs";
 import Albums from "./components/Albums";
 import Artists from "./components/Artists";
 import Home from "./components/Home";
+import SingleSong from "./components/SingleSong";
 
 function App() {
   const [currentComponent, setCurrentComponent] = useState("Home");
-  const [isMobile, setIsMobile] = useState(false);
-  useEffect(
-    () =>
-      window.addEventListener("resize", () =>
-        window.innerWidth > 1024 ? setIsMobile(false) : setIsMobile(true)
-      ),
-    []
-  );
+  const [id, setId] = useState(0);
+
   return (
     <Router>
       <Nav
@@ -24,10 +19,18 @@ function App() {
       />
       <main className="flex justify-center">
         <Routes>
-          <Route exact path="/" element={<Home />} />
-          <Route exact path="Songs" element={<Songs />} />
-          <Route exact path="Albums" element={<Albums />} />
-          <Route exact path="Artists" element={<Artists />} />
+          <Route path="/" element={<Home />} />
+          <Route path="Songs" element={<Songs setId={setId}/>} />
+          <Route path="Albums" element={<Albums />} />
+          <Route path="Artists" element={<Artists />} />
+          <Route
+            path="Songs/:id"
+            element={
+              <SingleSong
+                id={id}
+              />
+            }
+          />
         </Routes>
       </main>
     </Router>
