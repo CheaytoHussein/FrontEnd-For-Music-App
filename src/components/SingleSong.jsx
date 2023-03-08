@@ -50,7 +50,7 @@ export default function SingleSong({ id }) {
     <motion.section
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
-      className="w-screen h-screen flex flex-col lg:flex-row justify-center gap-10 items-center"
+      className="w-screen h-screen flex flex-col lg:flex-row justify-center lg:justify-around gap-10 items-center"
     >
       <img
         src={song.cover != "" ? song.cover : cdLogo}
@@ -70,7 +70,7 @@ export default function SingleSong({ id }) {
           ].map((item, idx) => {
             return (
               <span
-                className="flex flex-row justify-center items-center gap-8 text-2xl lg:text-4xl font-extrabold"
+                className="flex flex-row justify-center items-center gap-8 text-xl lg:text-4xl font-extrabold"
                 key={idx}
               >
                 <span className="text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">

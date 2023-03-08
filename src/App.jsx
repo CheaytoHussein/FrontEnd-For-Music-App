@@ -6,6 +6,7 @@ import Albums from "./components/Albums";
 import Artists from "./components/Artists";
 import Home from "./components/Home";
 import SingleSong from "./components/SingleSong";
+import SingleAlbum from "./components/SingleAlbum";
 
 function App() {
   const [currentComponent, setCurrentComponent] = useState("Home");
@@ -20,17 +21,11 @@ function App() {
       <main className="flex justify-center">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="Songs" element={<Songs setId={setId}/>} />
-          <Route path="Albums" element={<Albums />} />
-          <Route path="Artists" element={<Artists />} />
-          <Route
-            path="Songs/:id"
-            element={
-              <SingleSong
-                id={id}
-              />
-            }
-          />
+          <Route path="Songs" element={<Songs setId={setId} />} />
+          <Route path="Albums" element={<Albums setId={setId} />} />
+          <Route path="Artists" element={<Artists setId={setId} />} />
+          <Route path="Songs/:nameAndId" element={<SingleSong id={id} />} />
+          <Route path="/Albums/:nameAndId" element={<SingleAlbum id={id} />} />
         </Routes>
       </main>
     </Router>
