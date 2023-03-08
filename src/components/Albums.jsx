@@ -42,8 +42,8 @@ export default function Albums() {
         {albumData.map((item, idx) => {
           return (
             <motion.figure
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              initial={{ x: 100 }}
+              whileInView={{ x: 0 }}
               key={idx}
               className="flex flex-col lg:flex-row justify-around items-center h-[70vh] w-[70vw] lg:w-[50vw] lg:h-[20vh] border-transparent rounded-2xl shadow-3xl"
             >
@@ -70,7 +70,7 @@ export default function Albums() {
                     <span className="lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
                       tracks
                     </span>
-                    {item.tracks  }
+                    {item.tracks}
                   </span>
                 </div>
                 <div>

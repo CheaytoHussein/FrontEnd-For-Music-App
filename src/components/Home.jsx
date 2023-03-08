@@ -2,6 +2,7 @@ import React from "react";
 import headphones from "../assets/headphones.svg";
 import { motion } from "framer-motion";
 export default function Home() {
+  document.title = "Music App - Home"
   return (
     <motion.section
       initial={{ opacity: 0 }}

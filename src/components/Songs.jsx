@@ -29,11 +29,7 @@ const Song = ({ setId }) => {
   function handleAlbum(song) {
     return song.album == null ? "no album" : song.album;
   }
-  function handleDuration(duration) {
-    let minutes = ~~(duration / 60); //fastest way to do integer division in JavaScript
-    let seconds = duration % 60;
-    return `${minutes}:${(seconds < 9 ? "0" : "") + seconds}`;
-  }
+
   return loading ? (
     <img
       src={logo}
@@ -59,13 +55,18 @@ const Song = ({ setId }) => {
         {songData.map((item, idx) => {
           return (
             <Link
-              to={"/Songs/" + item.songId}
+              to={
+                "/Songs/" +
+                item.songName.split(" ").join("") +
+                "-" +
+                item.songId
+              }
               key={idx}
               onClick={() => setId(item.songId)}
             >
               <motion.figure
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
+                initial={{ x: 100 }}
+                whileInView={{ x: 0 }}
                 className="flex flex-col lg:flex-row justify-evenly items-center w-[70vw] h-[70vh] lg:w-[50vw] lg:h-[20vh] border-transparent rounded-2xl shadow-3xl"
               >
                 <img
@@ -73,47 +74,24 @@ const Song = ({ setId }) => {
                   alt="cover image of the song"
                   className="aspect-square h-20"
                 />
-                <figcaption className="flex flex-col lg:flex-row lg:  gap-10">
-                  <div>
-                    <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
-                      <span className="lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-                        song name
+                <figcaption className="flex flex-col lg:flex-row lg:gap-20">
+                  {[
+                    { text: "song name", variable: item.songName },
+                    { text: "artist(s)", variable: handleArtists(item) },
+                    { text: "album", variable: handleAlbum(item) },
+                  ].map((element, idx) => {
+                    return (
+                      <span
+                        className="flex flex-col justify-center items-center gap-2 font-extrabold"
+                        key={idx}
+                      >
+                        <span className="lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+                          {element.text}
+                        </span>
+                        {element.variable}
                       </span>
-                      {item.songName}
-                    </span>
-                    <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
-                      <span className="font-extrabold lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-                        artist(s)
-                      </span>
-                      {handleArtists(item)}
-                    </span>
-                    <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
-                      <span className="font-extrabold lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-                        album
-                      </span>
-                      {handleAlbum(item)}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
-                      <span className="lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-                        release date
-                      </span>
-                      {item.releaseDate}
-                    </span>
-                    <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
-                      <span className="lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-                        genre
-                      </span>
-                      {item.genre}
-                    </span>
-                    <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
-                      <span className="lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-                        duration
-                      </span>
-                      {handleDuration(item.duration)}
-                    </span>
-                  </div>
+                    );
+                  })}
                 </figcaption>
               </motion.figure>
             </Link>

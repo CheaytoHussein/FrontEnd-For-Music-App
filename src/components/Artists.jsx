@@ -35,8 +35,8 @@ export default function Artists() {
         {artistData.map((item, idx) => {
           return (
             <motion.figure
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
+              initial={{ x: 100 }}
+              whileInView={{ x: 0 }}
               // style={{
               //   height: item.description.length > 320 ? "50vh" : "30vh",
               // }}
@@ -75,7 +75,7 @@ export default function Artists() {
                       songs
                     </span>
                     {item.songCount}
-                  </span> 
+                  </span>
                 </div>
               </figcaption>
               {/* <h2 className="w-[70%] text-center ml-auto mr-auto font-bold leading-7">
