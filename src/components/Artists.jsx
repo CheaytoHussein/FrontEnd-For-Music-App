@@ -2,8 +2,9 @@ import React, { useEffect, useState } from "react";
 import logo from "../assets/main.svg";
 import cdLogo from "../assets/cd.svg";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
-export default function Artists() {
+export default function Artists({ setId }) {
   const [artistData, setArtistData] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -34,54 +35,46 @@ export default function Artists() {
       <div className="mt-20 flex flex-col gap-20">
         {artistData.map((item, idx) => {
           return (
-            <motion.figure
-              initial={{ x: 100 }}
-              whileInView={{ x: 0 }}
-              // style={{
-              //   height: item.description.length > 320 ? "50vh" : "30vh",
-              // }}
+            <Link
               key={idx}
-              className="flex flex-col lg:flex-row justify-around items-center h-[70vh] w-[70vw] lg:w-[50vw] lg:h-[20vh] border-transparent rounded-2xl shadow-3xl"
+              to={
+                "/Artists/" +
+                item.artistName.split(" ").join("") +
+                "-" +
+                item.artistId
+              }
+              onClick={() => setId(item.artistId)}
             >
-              <img
-                src={item.cover == "" ? cdLogo : item.cover}
-                alt="cover image of the song"
-                className="aspect-square h-20"
-              />
-              <figcaption className="flex flex-col lg:flex-row lg:gap-20">
-                <div>
-                  <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
-                    <span className="lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-                      artist name
-                    </span>
-                    {item.artistName}
-                  </span>
-                  <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
-                    <span className="font-extrabold lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-                      albums
-                    </span>
-                    {item.albumCount}
-                  </span>
-                </div>
-                <div>
-                  <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
-                    <span className="lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-                      genre
-                    </span>
-                    {item.genre}
-                  </span>
-                  <span className="flex flex-row justify-center items-center gap-2 font-extrabold">
-                    <span className="lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
-                      songs
-                    </span>
-                    {item.songCount}
-                  </span>
-                </div>
-              </figcaption>
-              {/* <h2 className="w-[70%] text-center ml-auto mr-auto font-bold leading-7">
-                {item.description}
-              </h2> */}
-            </motion.figure>
+              <motion.figure
+                initial={{ x: 100 }}
+                whileInView={{ x: 0 }}
+                className="flex flex-col lg:flex-row justify-around items-center h-[70vh] w-[70vw] lg:w-[50vw] lg:h-[20vh] border-transparent rounded-2xl shadow-3xl"
+              >
+                <img
+                  src={item.cover == "" ? cdLogo : item.cover}
+                  alt="cover image of the song"
+                  className="aspect-square h-20"
+                />
+                <figcaption className="flex flex-col lg:flex-row lg:gap-20">
+                  {[
+                    { text: "artist name", variable: item.artistName },
+                    { text: "genre", variable: item.genre },
+                  ].map((element, idx) => {
+                    return (
+                      <span
+                        key={idx}
+                        className="flex flex-col justify-center items-center gap-2 font-extrabold"
+                      >
+                        <span className="lg:text-xl text-md text-center text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+                          {element.text}
+                        </span>
+                        {element.variable}
+                      </span>
+                    );
+                  })}
+                </figcaption>
+              </motion.figure>
+            </Link>
           );
         })}
       </div>

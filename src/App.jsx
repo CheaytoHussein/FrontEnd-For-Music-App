@@ -7,6 +7,7 @@ import Artists from "./components/Artists";
 import Home from "./components/Home";
 import SingleSong from "./components/SingleSong";
 import SingleAlbum from "./components/SingleAlbum";
+import SingleArtist from "./components/SingleArtist";
 
 function App() {
   const [currentComponent, setCurrentComponent] = useState("Home");
@@ -26,6 +27,7 @@ function App() {
           <Route path="Artists" element={<Artists setId={setId} />} />
           <Route path="Songs/:nameAndId" element={<SingleSong id={id} />} />
           <Route path="/Albums/:nameAndId" element={<SingleAlbum id={id} />} />
+          <Route path="/Artists/:nameAndId" element={<SingleArtist id={id} />} />
         </Routes>
       </main>
     </Router>

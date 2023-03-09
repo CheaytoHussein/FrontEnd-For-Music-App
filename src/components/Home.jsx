@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 export default function Home() {
   document.title = "Music App - Home"
   return (
-    <motion.section
+    <motion.main
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       className="h-screen w-screen flex flex-col lg:flex-row lg:justify-around justify-evenly items-center"
@@ -22,6 +22,6 @@ export default function Home() {
         src={headphones}
         alt=""
       />
-    </motion.section>
+    </motion.main>
   );
 }

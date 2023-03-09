@@ -3,22 +3,19 @@ import logo from "../assets/main.svg";
 import cdLogo from "../assets/cd.svg";
 import { motion } from "framer-motion";
 
-export default function SingleAlbum({ id }) {
-  const [album, setAlbum] = useState({});
+export default function SingleArtist({ id }) {
+  const [artist, setArtist] = useState({});
   const [loading, setLoading] = useState(true);
   const [failedFetch, setFailedFetch] = useState(false);
+
   useEffect(() => {
-    fetch(`http://localhost:8080/api/albums/${id}`)
+    fetch(`http://localhost:8080/api/artists/${id}`)
       .then((data) => data.json())
-      .then((data) => setAlbum(data))
+      .then((data) => setArtist(data))
       .finally(() => setLoading(false))
       .catch(() => setFailedFetch(true));
   }, []);
-  function handleArtists(album) {
-    return album.albumArtists.length == 0
-      ? "unknown artist(s)"
-      : album.albumArtists.join(", ");
-  }
+
   return loading ? (
     <img
       src={logo}
@@ -37,23 +34,21 @@ export default function SingleAlbum({ id }) {
     <motion.figure
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
-      className="w-screen h-screen flex flex-col lg:flex-row justify-center lg:justify-around gap-10 items-center"
+      className="w-screen h-screen flex flex-col justify-evenly items-center"
     >
-      <img
-        src={album.cover != "" ? album.cover : cdLogo}
-        alt="album cover image"
-        className="aspect-square w-40 lg:w-60"
-      />
-      <figcaption className="flex flex-col lg:gap-20 gap-10 items-center justify-around">
-        <div className="flex flex-col lg:gap-5 gap-2">
+      <div className="flex flex-col lg:flex-row justify-around w-screen">
+        <img
+          src={artist.cover != "" ? artist.cover : cdLogo}
+          alt="cover image of the artist"
+          className="aspect-square w-40 lg:w-60"
+        />
+        <figcaption>
           {[
-            { text: "album name", variable: album.albumName },
-            { text: "artist(s)", variable: handleArtists(album) },
-            { text: "tracks", variable: album.tracks },
-            { text: "release date", variable: album.releaseDate },
-            { text: "genre", variable: album.genre },
-            { text: "duration", variable: album.duration },
-            { text: "plays", variable: album.albumPlays + "000" },
+            { text: "artist name", variable: artist.artistName },
+            { text: "songs", variable: artist.songCount },
+            { text: "albums", variable: artist.albumCount },
+            { text: "genre", variable: artist.genre },
+            { text: "plays", variable: artist.plays },
           ].map((item, idx) => {
             return (
               <span
@@ -67,8 +62,14 @@ export default function SingleAlbum({ id }) {
               </span>
             );
           })}
-        </div>
-      </figcaption>
+        </figcaption>
+      </div>
+      <div className="flex flex-col w-[50vw] items-center text-center gap-5">
+        <span className="text-xl lg:text-4xl w-max font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
+          description
+        </span>
+        <span className="text-2xl ">{artist.description}</span>
+      </div>
     </motion.figure>
   );
 }

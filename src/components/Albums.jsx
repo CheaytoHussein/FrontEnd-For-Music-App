@@ -22,7 +22,7 @@ export default function Albums({ setId }) {
 
   function handleArtists(album) {
     return album.albumArtists.length == 0
-      ? "unknown artist"
+      ? "unknown artist(s)"
       : album.albumArtists.join(", ");
   }
 

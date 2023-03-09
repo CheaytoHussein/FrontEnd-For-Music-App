@@ -47,7 +47,7 @@ export default function SingleSong({ id }) {
       Failed to load , try refreshing the page
     </motion.h2>
   ) : (
-    <motion.section
+    <motion.figure
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       className="w-screen h-screen flex flex-col lg:flex-row justify-center lg:justify-around gap-10 items-center"
@@ -89,6 +89,6 @@ export default function SingleSong({ id }) {
           Play Song
         </a>
       </figcaption>
-    </motion.section>
+    </motion.figure>
   );
 }
