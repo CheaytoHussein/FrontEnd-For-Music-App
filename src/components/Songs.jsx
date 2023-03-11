@@ -49,7 +49,7 @@ const Song = ({ setId }) => {
       <input
         type="text"
         placeholder="Search by song name"
-        className="sticky top-20 h-10 w-80 lg:w-96 border-none border-solid rounded-xl text-center font-bold mt-40"
+        className="sticky top-[10vh] h-10 w-80 lg:w-96 border-none border-solid rounded-xl text-center font-bold mt-40"
       />
       <div className="mt-20 flex flex-col gap-20">
         {songData.map((item, idx) => {
