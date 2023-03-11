@@ -1,8 +1,9 @@
 import React from "react";
 import headphones from "../assets/headphones.svg";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 export default function Home() {
-  document.title = "Music App - Home"
+  document.title = "Music App - Home";
   return (
     <motion.main
       initial={{ opacity: 0 }}
