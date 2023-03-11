@@ -17,7 +17,7 @@ function App() {
     window.addEventListener("resize", () =>
       window.innerWidth < 1024 ? setIsMobile(true) : setIsMobile(false)
     );
-  }, [window.innerWidth]);
+  }, []);
 
   return (
     <Router>
