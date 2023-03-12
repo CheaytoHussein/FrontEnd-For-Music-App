@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import cdLogo from "../assets/cd.svg";
-import logo from "../assets/main.svg";
+import cdLogo from "../../assets/cd.svg";
+import logo from "../../assets/main.svg";
 
 export default function SingleSong({ id }) {
   const [song, setSong] = useState({});

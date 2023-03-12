@@ -15,7 +15,7 @@ export default function Nav({
   return (
     <>
       <nav
-        className="w-screen bg-neutral-900 fixed top-0 shadow-3xl z-10 flex flex-col lg:flex-row items-center lg:justify-between transition-all"
+        className="w-screen bg-gradient-to-r from-purple-600 to-pink-400 fixed top-0 shadow-3xl z-10 flex flex-col lg:flex-row items-center lg:justify-between transition-all"
         style={{ height: navOpen ? "100vh" : "10vh" }}
       >
         <div className="lg:w-max w-screen flex flex-row justify-evenly mt-[2.5vh] lg:mt-0">
@@ -60,7 +60,7 @@ export default function Nav({
                   }}
                   className={
                     currentComponent == item
-                      ? "transition color cursor-pointer text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600"
+                      ? "transition-colors cursor-pointer underline"
                       : "cursor-pointer"
                   }
                 >
@@ -79,18 +79,18 @@ export default function Nav({
       </nav>
       {createOpen && (
         <motion.ul
-          className="absolute lg:right-20 w-screen bottom-0 lg:top-[10vh] lg:w-60 h-40 bg-zinc-600 z-10 text-center text-xl flex flex-col justify-around font-bold rounded-xl"
+          className="absolute lg:right-20 w-screen bottom-0 lg:top-[10vh] lg:w-60 h-40 bg-zinc-600 z-10 text-center text-xl flex flex-col justify-around font-bold lg:rounded-xl"
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
         >
           {navLinks.map((item, idx) => {
             return (
-              <li
-                key={idx}
-                className="cursor-pointer hover:text-purple-400 transition-colors"
-              >
-                {item}
-              </li>
+              <Link key={idx} to={"/Create/" + item.slice(0, -1)}>
+                {/*the slice method is used to remove the "s" from the component name, because we're creating an element not many elements*/}
+                <li className="cursor-pointer hover:text-purple-400 transition-colors">
+                  {item}
+                </li>
+              </Link>
             );
           })}
         </motion.ul>

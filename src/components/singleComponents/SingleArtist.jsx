@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import logo from "../assets/main.svg";
-import cdLogo from "../assets/cd.svg";
+import logo from "../../assets/main.svg";
+import cdLogo from "../../assets/cd.svg";
 import { motion } from "framer-motion";
 
 export default function SingleArtist({ id }) {

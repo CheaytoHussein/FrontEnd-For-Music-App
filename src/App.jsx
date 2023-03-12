@@ -5,9 +5,12 @@ import Songs from "./components/Songs";
 import Albums from "./components/Albums";
 import Artists from "./components/Artists";
 import Home from "./components/Home";
-import SingleSong from "./components/SingleSong";
-import SingleAlbum from "./components/SingleAlbum";
-import SingleArtist from "./components/SingleArtist";
+import SingleSong from "./components/singleComponents/SingleSong";
+import SingleAlbum from "./components/singleComponents/SingleAlbum";
+import SingleArtist from "./components/singleComponents/SingleArtist";
+import CreateSong from "./components/createComponents/CreateSong";
+import CreateAlbum from "./components/createComponents/CreateAlbum";
+import CreateArtist from "./components/createComponents/CreateArtist";
 
 function App() {
   const [isMobile, setIsMobile] = useState(false);
@@ -34,10 +37,10 @@ function App() {
           <Route path="Artists" element={<Artists setId={setId} />} />
           <Route path="Songs/:nameAndId" element={<SingleSong id={id} />} />
           <Route path="/Albums/:nameAndId" element={<SingleAlbum id={id} />} />
-          <Route
-            path="/Artists/:nameAndId"
-            element={<SingleArtist id={id} />}
-          />
+          <Route path="/Artists/:nameAndId" element={<SingleArtist id={id} />} />
+          <Route path="/Create/Song" element={<CreateSong />} />
+          <Route path="/Create/Album" element={<CreateAlbum />} />
+          <Route path="/Create/Artist" element={<CreateArtist />} />
         </Routes>
       </main>
     </Router>
