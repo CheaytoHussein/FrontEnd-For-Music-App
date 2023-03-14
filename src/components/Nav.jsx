@@ -87,7 +87,10 @@ export default function Nav({
             return (
               <Link key={idx} to={"/Create/" + item.slice(0, -1)}>
                 {/*the slice method is used to remove the "s" from the component name, because we're creating an element not many elements*/}
-                <li className="cursor-pointer hover:text-purple-400 transition-colors">
+                <li
+                  className="cursor-pointer hover:text-purple-400 transition-colors"
+                  onClick={() => setCreateOpen(false)}
+                >
                   {item}
                 </li>
               </Link>

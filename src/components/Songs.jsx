@@ -7,7 +7,6 @@ const Song = ({ setId }) => {
   const [songData, setSongData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [failedFetch, setFailedFetch] = useState(false);
-
   useEffect(() => {
     document.title = "Music-App - Songs";
     fetch("http://localhost:8080/api/songs")
