@@ -7,12 +7,14 @@ import { Link } from "react-router-dom";
 export default function Artists({ setId }) {
   const [artistData, setArtistData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [failedFetch, setFailedFetch] = useState(false);
 
   useEffect(() => {
     document.title = "Music-App - Artists";
     fetch("http://localhost:8080/api/artists")
       .then((data) => data.json())
       .then((data) => setArtistData(data))
+      .catch(() => setFailedFetch(true))
       .finally(() => setLoading(false));
   }, []);
 
@@ -22,6 +24,14 @@ export default function Artists({ setId }) {
       alt="spinning music logo"
       className="animate-spin aspect-square h-10 absolute top-[50vh]"
     />
+  ) : failedFetch ? (
+    <motion.h2
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      className="text-2xl font-ultrabold text-pink-600 mt-40"
+    >
+      Failed to load , try refreshing the page
+    </motion.h2>
   ) : (
     <section className="flex flex-col bg-neutral-900 justify-around items-center">
       <input
