@@ -16,11 +16,12 @@ function App() {
   const [isMobile, setIsMobile] = useState(false);
   const [currentComponent, setCurrentComponent] = useState("Home");
   const [id, setId] = useState(0);
-  useEffect(() => {
-    window.addEventListener("resize", () =>
-      window.innerWidth < 1024 ? setIsMobile(true) : setIsMobile(false)
-    );
-  }, []);
+  
+  // useEffect(() => {
+  //   window.addEventListener("resize", () =>
+  //     window.innerWidth < 1024 ? setIsMobile(true) : setIsMobile(false)
+  //   );
+  // }, []);
 
   return (
     <Router>

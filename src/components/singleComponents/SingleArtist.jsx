@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import logo from "../../assets/main.svg";
 import cdLogo from "../../assets/cd.svg";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 export default function SingleArtist({ id }) {
   const [artist, setArtist] = useState({});
@@ -9,12 +10,20 @@ export default function SingleArtist({ id }) {
   const [failedFetch, setFailedFetch] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/artists/${id}`)
-      .then((data) => data.json())
-      .then((data) => setArtist(data))
-      .finally(() => setLoading(false))
-      .catch(() => setFailedFetch(true));
+    if (id == 0) id = getIdFromPath();
+    axios
+      .get(`http://localhost:8080/api/artists/${id}`)
+      .then((data) => setArtist(data.data))
+      .catch(() => setFailedFetch(true))
+      .finally(() => setLoading(false));
   }, []);
+
+  function getIdFromPath() {
+    return parseInt(
+      window.location.pathname.split("/").at(-1).split("-").at(-1)
+    );
+    //cuts the path name by slashes, then takes the last element (name of the artist + id), splits it and takes last element (id)
+  }
 
   return loading ? (
     <img
@@ -34,9 +43,9 @@ export default function SingleArtist({ id }) {
     <motion.figure
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
-      className="w-screen h-screen flex flex-col justify-evenly items-center"
+      className="w-screen h-screen flex flex-col justify-evenly items-center gap-20 mt-60 lg:mt-20"
     >
-      <div className="flex flex-col lg:flex-row justify-around w-screen">
+      <div className="flex flex-col lg:flex-row justify-around w-screen items-center gap-5">
         <img
           src={artist.cover != "" ? artist.cover : cdLogo}
           alt="cover image of the artist"
@@ -64,7 +73,7 @@ export default function SingleArtist({ id }) {
           })}
         </figcaption>
       </div>
-      <div className="flex flex-col w-[50vw] items-center text-center gap-5">
+      <div className="flex flex-col w-[50vw] items-center text-center gap-1 ">
         <span className="text-xl lg:text-4xl w-max font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">
           description
         </span>

@@ -3,6 +3,7 @@ import logo from "../assets/main.svg";
 import cdLogo from "../assets/cd.svg";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function Artists({ setId }) {
   const [artistData, setArtistData] = useState([]);
@@ -11,9 +12,9 @@ export default function Artists({ setId }) {
 
   useEffect(() => {
     document.title = "Music-App - Artists";
-    fetch("http://localhost:8080/api/artists")
-      .then((data) => data.json())
-      .then((data) => setArtistData(data))
+    axios
+      .get("http://localhost:8080/api/artists")
+      .then((data) => setArtistData(data.data))
       .catch(() => setFailedFetch(true))
       .finally(() => setLoading(false));
   }, []);
@@ -46,7 +47,7 @@ export default function Artists({ setId }) {
               key={idx}
               to={
                 "/Artists/" +
-                item.artistName.split(" ").join("") +
+                item.artistName.replace(".", "").split(" ").join("") +
                 "-" +
                 item.artistId
               }

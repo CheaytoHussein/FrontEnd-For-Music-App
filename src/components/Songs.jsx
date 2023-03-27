@@ -3,21 +3,21 @@ import logo from "../assets/main.svg";
 import cdLogo from "../assets/cd.svg";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import axios from "axios";
+
 const Song = ({ setId }) => {
   const [songData, setSongData] = useState([]);
   const [loading, setLoading] = useState(true);
   const [failedFetch, setFailedFetch] = useState(false);
   useEffect(() => {
     document.title = "Music-App - Songs";
-    fetch("http://localhost:8080/api/songs")
-      .then((data) => data.json())
-      .then((data) => {
-        setSongData(data);
-      })
+    axios
+      .get("http://localhost:8080/api/songs")
+      .then((data) => setSongData(data.data))
+      .catch(() => setFailedFetch(true))
       .finally(() => {
         setLoading(false);
-      })
-      .catch(() => setFailedFetch(true));
+      });
   }, []);
 
   function handleArtists(song) {
@@ -56,7 +56,7 @@ const Song = ({ setId }) => {
             <Link
               to={
                 "/Songs/" +
-                item.songName.split(" ").join("") +
+                item.songName.replace(".", "").split(" ").join("") +
                 "-" +
                 item.songId
               }

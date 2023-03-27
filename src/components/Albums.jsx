@@ -3,6 +3,7 @@ import logo from "../assets/main.svg";
 import cdLogo from "../assets/cd.svg";
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 export default function Albums({ setId }) {
   const [albumData, setAlbumData] = useState([]);
@@ -11,9 +12,9 @@ export default function Albums({ setId }) {
 
   useEffect(() => {
     document.title = "Music-App - Albums";
-    fetch("http://localhost:8080/api/albums")
-      .then((data) => data.json())
-      .then((data) => setAlbumData(data))
+    axios
+      .get("http://localhost:8080/api/albums")
+      .then((data) => setAlbumData(data.data))
       .catch(() => setFailedFetch(true))
       .finally(() => {
         setLoading(false);
@@ -54,7 +55,7 @@ export default function Albums({ setId }) {
               key={idx}
               to={
                 "/Albums/" +
-                item.albumName.split(" ").join("") +
+                item.albumName.replace(".","").split(" ").join("") +
                 "-" +
                 item.albumId
               }

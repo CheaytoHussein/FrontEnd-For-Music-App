@@ -70,7 +70,10 @@ export default function Nav({
             })}
             <li
               className="cursor-pointer"
-              onClick={() => setCreateOpen((oldState) => !oldState)}
+              onClick={() => {
+                setCreateOpen((oldState) => !oldState);
+                setCurrentComponent("");//to remove the underline from the current component on the navbar
+              }}
             >
               Create
             </li>
@@ -89,7 +92,10 @@ export default function Nav({
                 {/*the slice method is used to remove the "s" from the component name, because we're creating an element not many elements*/}
                 <li
                   className="cursor-pointer hover:text-purple-400 transition-colors"
-                  onClick={() => setCreateOpen(false)}
+                  onClick={() => {
+                    setCreateOpen(false);
+                    setNavOpen(false);
+                  }}
                 >
                   {item}
                 </li>

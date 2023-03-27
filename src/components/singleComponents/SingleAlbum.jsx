@@ -2,22 +2,31 @@ import React, { useEffect, useState } from "react";
 import logo from "../../assets/main.svg";
 import cdLogo from "../../assets/cd.svg";
 import { motion } from "framer-motion";
+import axios from "axios";
 
 export default function SingleAlbum({ id }) {
   const [album, setAlbum] = useState({});
   const [loading, setLoading] = useState(true);
   const [failedFetch, setFailedFetch] = useState(false);
   useEffect(() => {
-    fetch(`http://localhost:8080/api/albums/${id}`)
-      .then((data) => data.json())
-      .then((data) => setAlbum(data))
-      .finally(() => setLoading(false))
-      .catch(() => setFailedFetch(true));
+    console.log(getIdFromPath())
+    if (id == 0) id = getIdFromPath();
+    axios
+      .get(`http://localhost:8080/api/albums/${id}`)
+      .then((data) => setAlbum(data.data))
+      .catch(() => setFailedFetch(true))
+      .finally(() => setLoading(false));
   }, []);
   function handleArtists(album) {
     return album.albumArtists.length == 0
       ? "unknown artist(s)"
       : album.albumArtists.join(", ");
+  }
+  function getIdFromPath() {
+    return parseInt(
+      encodeURIComponent(window.location.pathname).replace(".","").split("/").at(-1).split("-").at(-1)
+    );
+    //cuts the path name by slashes, then takes the last element (name of the album + id), splits it and takes last element (id)
   }
   return loading ? (
     <img
@@ -52,8 +61,8 @@ export default function SingleAlbum({ id }) {
             { text: "tracks", variable: album.tracks },
             { text: "release date", variable: album.releaseDate },
             { text: "genre", variable: album.genre },
-            { text: "duration", variable: album.duration },
-            { text: "plays", variable: album.albumPlays + "000" },
+            { text: "duration", variable: album.duration + " minutes" },
+            { text: "plays", variable: album.albumPlays },
           ].map((item, idx) => {
             return (
               <span

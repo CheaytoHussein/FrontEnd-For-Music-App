@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import cdLogo from "../../assets/cd.svg";
 import logo from "../../assets/main.svg";
+import axios from "axios";
 
 export default function SingleSong({ id }) {
   const [song, setSong] = useState({});
@@ -9,13 +10,19 @@ export default function SingleSong({ id }) {
   const [failedFetch, setFailedFetch] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/songs/${id}`)
-      .then((data) => data.json())
-      .then((data) => setSong(data))
+    if (id == 0) id = getIdFromPath();
+    axios
+      .get(`http://localhost:8080/api/songs/${id}`)
+      .then((data) => setSong(data.data))
       .catch(() => setFailedFetch(true))
       .finally(() => setLoading(false));
   }, []);
-
+  function getIdFromPath() {
+    return parseInt(
+      window.location.pathname.split("/").at(-1).split("-").at(-1)
+    );
+    //cuts the path name by slashes, then takes the last element (name of the song + id), splits it and takes last element (id)
+  }
   function handleArtists(song) {
     return song.artists.length == 0
       ? "unknown artist"
@@ -66,7 +73,7 @@ export default function SingleSong({ id }) {
             { text: "release date", variable: song.releaseDate },
             { text: "genre", variable: song.genre },
             { text: "duration", variable: handleDuration(song.duration) },
-            { text: "plays", variable: song.plays + "000" },
+            { text: "plays", variable: song.plays },
           ].map((item, idx) => {
             return (
               <span
@@ -84,7 +91,9 @@ export default function SingleSong({ id }) {
         <a
           href={song.youtubeLink}
           target="_blank"
-          className="bg-gradient-to-r from-purple-400 to-pink-600 text-2xl lg:text-4xl h-10 lg:h-20 w-40 lg:w-60 flex items-center justify-center border-transparent rounded-xl font-bold"
+          className="bg-gradient-to-r from-purple-400 to-pink-600 text-2xl lg:text-4xl h-10 lg:h-20 w-40 lg:w-60 flex items-center justify-center border-transparent rounded-xl font-bold shadow-3xl"
+          onClick={() =>
+            axios.put(`http://localhost:8080/api/songs/play/${song.songId}`)}
         >
           Play Song
         </a>
